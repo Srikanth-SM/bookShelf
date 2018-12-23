@@ -1,0 +1,41 @@
+{% extends "library/adminDashBoard.html" %}
+{% block center-content %}
+<!-- {{context.as_p}} -->
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Language</th>
+                    <th>Genre</th>
+
+                </tr>
+            </thead>
+
+            {% for book in context %}
+            <!-- {{book.id}} -->
+            <tbody>
+                <tr>
+
+
+
+                    <td>
+                        <a href="delete/{{book.id}}">
+                            {{book.title}}
+                        </a>
+                    </td>
+
+                    <td>{{book.author}}</td>
+                    <td>{{book.genre}}</td>
+                    <td>{{book.language}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Delete">
+    </div>
+</form>
+{% endblock %}

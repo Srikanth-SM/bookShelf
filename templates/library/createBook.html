@@ -1,0 +1,24 @@
+{% extends "library/adminDashBoard.html" %}
+{% block center-content %}
+<div>
+    <h3>Create a Book </h3>
+</div>
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        {% for field in context %}
+        <div class="form-group">
+            {{ field.name }}
+            <div>
+                {{ field }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <input type="submit" name='action' value="Create">
+    <input type="submit" name='action' value="Save And Create Another">
+</form>
+
+
+<!-- {{context.as_p}} -->
+{% endblock %}

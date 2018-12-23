@@ -1,0 +1,9 @@
+{% extends "library/adminDashBoard.html" %}
+
+{% block content%}
+{% for book in context.get_books %}
+<div>
+    {{book.id}}-{{book.author}}-{{book.title}}
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "library/adminDashBoard.html" %}
+
+{% block center-content %}
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th>Title</th>
+                <th>Author</th>
+                <th>Language</th>
+                <th>Copies</th>
+            </tr>
+        </thead>
+
+        {% for book in context.get_books %}
+        <!-- {{book.id}} -->
+        <tbody>
+            <tr>
+
+                <td>
+                    <a href="{{book.id}}">
+                        {{book.title}}
+                    </a>
+                </td>
+                <td>{{book.author}}</td>
+                <td>{{book.language}}</td>
+                <td>{{book.bookinstance_set.count}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}

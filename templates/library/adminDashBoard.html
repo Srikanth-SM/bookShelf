@@ -1,0 +1,72 @@
+{% extends "library/base.html" %}
+{% block left-side %}
+<div class="">
+    <div>
+        <a href="profile/">
+            Profile
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'getBooks' %}">
+            Get All Books
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'addBook'  %}">
+            Create A Book
+        </a>
+    </div>
+    <div>
+        <a href="#">
+            Update A Book
+        </a>
+    </div>
+    <div>
+        <a href="#">
+            Delete A Book
+        </a>
+    </div>
+</div>
+<!-- Book Instance -->
+<div class="margin-top">BookInstance</div>
+<div class="">
+    <div>
+        <a href="{% url 'getBookInstances' %}">
+            Get All BookInstance
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'addBookInstance' %}">
+            Create A BookInstance
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'updateBookInstance' %}">
+            Update A BookInstance
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'deleteBookInstance' %}">
+            Delete A BookInstance
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block main %}
+<h1>Django Library</h1>
+
+{% block center-content %}
+{% endblock %}
+
+{% endblock %}
+
+
+{% block right-side %}
+<div class="float-right">{% firstof context.user userData %}
+    <a href="/auth/logout/">
+        logout
+    </a>
+</div>
+{% endblock %}

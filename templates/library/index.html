@@ -1,0 +1,24 @@
+{% extends "library/base.html" %}
+
+{% block content %}
+
+
+
+<form method='POST'>
+    {% csrf_token %}
+    {% if userData %}
+    <input type="submit" value="logout">
+    {% else %}
+
+
+    {{form.as_p}}
+
+
+    {{userData.length}}
+
+    <input type="submit" value="login">
+</form>
+{% endif %}
+
+
+{% endblock %}

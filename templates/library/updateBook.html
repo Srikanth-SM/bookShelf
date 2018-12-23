@@ -1,0 +1,37 @@
+{% extends "library/adminDashBoard.html" %}
+{% block center-content %}
+<!-- {{context.authors}} -->
+<form method="POST">
+    <div>
+        Title:
+        <div>
+            <span>
+                <input type="text" value={{context.book.title}}>
+            </span>
+        </div>
+    </div>
+    <div>
+        Author:
+        {{context.authors}}
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">{{context.book.author}}
+                <span class="caret"></span></button>
+            <div class="fieldWrapper">
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    {{context.authors}}
+
+                    <li class="fieldWrapper">
+                        <!-- {{ field.errors }} -->
+                        <!-- {{ field.label_tag }} {{ field }} -->
+                        <!-- {% if author.first_name %} -->
+                        <!-- <p class="help">{{ field.help_text|safe }}</p> -->
+                        <!-- {% endif %} -->
+                        {{author.title}}
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
