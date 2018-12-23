@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from authenticate.forms import LoginForm, SignInForm, Formss
+from authenticate.forms import LoginForm, SignUpForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
@@ -11,17 +11,18 @@ import pprint
 import json
 # from .models import Question, Choice
 
-ROOT_URL = 'bookshelf/'
+ROOT_URL = 'library/'
 
 
 def home(request):
     return render(request, ROOT_URL+"home.html")
+    # return HttpResponse("hai")
 
 
-def success(request):
+def profile(request):
     session = request.user
-    # print ("is user authenticated - ",request.user.is_authenticated())
-    return render(request, ROOT_URL+"success.html", {"session": session})
+    # print ("is user authenticated - ",request.user.is_authenticated()
+    return HttpResponseRedirect("/shelf/")
 
 
 def login(request):
@@ -29,13 +30,12 @@ def login(request):
     print("Inside Login")
     # check for the user if there is any logged in user
     if loginUserCheck(request):
-        return render(request, "bookShelf/profile.html", {'userData': request.user})
+        return HttpResponseRedirect("../profile/")
 
     # if method is post then user is trying to authenticate
     else:
         if request.method == 'POST':
             # try to authenticate the user from post data
-            print(request.POST)
             user = authenticate(username=request.POST['username'],
                                 password=request.POST['password1'])
             print(user)
@@ -45,7 +45,7 @@ def login(request):
                 if user.is_active:
                     # return render(request, "success.html", {'session': user})
                     auth_login(request, user)
-                    return HttpResponseRedirect("../success/")
+                    return HttpResponseRedirect("../profile/")
                 # username is correct but password is incorrect
                 else:
                     return HttpResponse("user password is correct,but user is not active")
@@ -61,37 +61,29 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    print(request.__dict__)
     print(request.user)
     return HttpResponseRedirect("../")
 
 
-def signIn(request):
+def signUp(request):
     # check whether to retrieve the form by using the request method
     if request.method == 'POST':
         # method is post, so trying to create a new user
-        print(request.POST)
-        signInForm = UserCreationForm(request.POST)
-        print(signInForm)
-        if signInForm.is_valid():
-            signInForm.save()
+
+        signUpForm = SignUpForm(request.POST)
+        if signUpForm.is_valid():
+            signUpForm.save()
             return login(request)
         else:
-            print(signInForm.errors)
-        return render(request, ROOT_URL+"signIn.html", {'form': signInForm})
+            print(signUpForm.errors)
+        return render(request, ROOT_URL+"signUp.html", {'form': signUpForm})
 
     else:
-        signInForm = UserCreationForm()
+        signUpForm = SignUpForm()
 
-        return render(request, ROOT_URL+"signIn.html", {'form': signInForm})
+        return render(request, ROOT_URL+"signUp.html", {'form': signUpForm})
 
 
 def loginUserCheck(request):
     print(request.user is not None and request.user.is_authenticated)
     return request.user is not None and request.user.is_authenticated
-
-
-class SignUp(generic.CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('../success')
-    template_name = ROOT_URL+'signIn.html'

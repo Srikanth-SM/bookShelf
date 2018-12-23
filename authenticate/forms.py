@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # def UserForm(request):
 # name = forms.CharField(label='name',max_length=100)
 # return render(request, 'polls/userForm.html', {'form': name})
-print(User._meta.get_fields())
+# print(User._meta.get_fields())
 
 
 class LoginForm(forms.Form):
@@ -15,22 +15,15 @@ class LoginForm(forms.Form):
         label='password1', max_length=100, widget=forms.PasswordInput)
 
 
-class SignInForm(UserCreationForm):
+class SignUpForm(UserCreationForm):
     # changePassword = forms.CharField(widget=forms.PasswordInput)
-    password = forms.CharField(widget=forms.PasswordInput())
+    # password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
         password = forms.CharField(widget=forms.PasswordInput())
-
-        fields = ['username', 'password', 'email']
+        fields = ['username', 'password1', 'password2', 'email']
         # widgets = {
         # 'password': forms.PasswordInput(),
         # 'changePassword': forms.PasswordInput(),
         # }
-
-
-class Formss(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password', 'email']
