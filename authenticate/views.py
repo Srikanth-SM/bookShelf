@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib import messages
 import pprint
 import json
 # from .models import Question, Choice
@@ -45,6 +46,7 @@ def login(request):
                 if user.is_active:
                     # return render(request, "success.html", {'session': user})
                     auth_login(request, user)
+                    messages.success(request, "User logged in Successfully")
                     return HttpResponseRedirect("../profile/")
                 # username is correct but password is incorrect
                 else:

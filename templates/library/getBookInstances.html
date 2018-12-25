@@ -1,0 +1,16 @@
+{% extends "library/adminDashBoard.html" %}
+{% block center-content %}
+<div>
+    <select name="bookInstance" id="">
+        {% for genre in context.genres %}
+        <option value="{{genre.id}}">{{genre.genre}}</option>
+        {% endfor %}
+    </select>
+</div>
+<a href="delete/">
+    <input type="button" value="delete">
+</a>
+<a href="update/">
+    <input type="button" value="update">
+</a>
+{% endblock %}

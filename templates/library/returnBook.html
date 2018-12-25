@@ -1,0 +1,8 @@
+{% extends "library/adminDashBoard.html" %}
+{% block center-content %}
+<form method="POST">
+    {% csrf_token %}
+    {{context.as_p}}
+    <input type="submit" value="Return">
+</form>
+{% endblock %}

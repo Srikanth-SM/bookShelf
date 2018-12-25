@@ -1,13 +1,59 @@
 {% extends "library/adminDashBoard.html" %}
 {% block center-content %}
+<!-- {{context.book}} -->
 <div>
-    <h2>{{context.title}}</h2>
-    <h3>{{context.author}}</h3>
+    <h2>{{context.book.title}}</h2>
+    <h3>{{context.book.author}}</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th>id</th>
+                <th>Borrower</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        {% for bookinstance in context.book.bookinstance_set.all %}
+        <tbody>
+
+            <tr>
+
+                <td>{{bookinstance.id}}</td>
+                <td>{{bookinstance.borrower_id}}</td>
+                <td>
+                    {% if bookinstance.due_back %}
+                    {{bookinstance.due_back}}
+                    {% else %}
+                    None
+                </td>
+                {% endif %}
+                <td>{{bookinstance.get_status_display}}</td>
+                <td>
+                    <a href="take/{{bookinstance.id}}/">book</a>
+                </td>
+
+                <td>
+                    <a href="delete/{{bookinstance.id}}/">delete</a>
+                </td>
+                <td>
+                    <a href="update/{{bookinstance.id}}/">update</a>
+                </td>
+                <td>
+                    <a href="return/{{bookinstance.id}}/">return</a>
+                </td>
+            </tr>
+        </tbody>
+        {%endfor%}
+    </table>
+
+
+
 </div>
-<a href="delete/">
-    <input type="button" value="delete">
-</a>
-<a href="update/">
-    <input type="button" value="update">
-</a>
+
 {% endblock %}

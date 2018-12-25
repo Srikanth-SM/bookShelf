@@ -2,36 +2,62 @@
 {% block center-content %}
 <!-- {{context.authors}} -->
 <form method="POST">
-    <div>
-        Title:
+    {% csrf_token %}
+    <div class="form-group">
         <div>
-            <span>
-                <input type="text" value={{context.book.title}}>
-            </span>
-        </div>
-    </div>
-    <div>
-        Author:
-        {{context.authors}}
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">{{context.book.author}}
-                <span class="caret"></span></button>
-            <div class="fieldWrapper">
-                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                    {{context.authors}}
-
-                    <li class="fieldWrapper">
-                        <!-- {{ field.errors }} -->
-                        <!-- {{ field.label_tag }} {{ field }} -->
-                        <!-- {% if author.first_name %} -->
-                        <!-- <p class="help">{{ field.help_text|safe }}</p> -->
-                        <!-- {% endif %} -->
-                        {{author.title}}
-                    </li>
-
-                </ul>
+            Title:
+            <div>
+                <span>
+                    <input type="text" name="title" value={{context.book.title}}>
+                </span>
             </div>
         </div>
+    </div>
+    <div class="form-group">
+        <div>
+            Author:
+            <!-- {{context.authors}} -->
+            <div>
+                <select name="author" id="">
+                    {% for author in context.authors %}
+                    <option value="{{author.id}}">{{author.first_name}},{{author.last_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            Language:
+            <!-- {{context.authors}} -->
+            <div>
+                <select name="language" id="">
+                    {% for language in context.languages %}
+                    <option value="{{language.id}}">{{language.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            Genre:
+            <!-- {{context.authors}} -->
+            <div>
+                <select name="genre" id="">
+                    {% for genre in context.genres %}
+                    <option value="{{genre.id}}">{{genre.genre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            <input type="submit" value="Update">
+        </div>
+
     </div>
 </form>
 {% endblock %}

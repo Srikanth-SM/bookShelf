@@ -1,4 +1,6 @@
+from django import forms
 from django.forms import ModelForm
+
 from library.models import Book, BookInstance, Author, Genre, Language
 
 
@@ -8,10 +10,18 @@ class BookForm(ModelForm):
         fields = ['title', 'author', 'summary', 'genre', 'language']
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class BookInstanceForm(ModelForm):
     class Meta:
         model = BookInstance
-        fields = ['book', 'status']
+        fields = '__all__'
+        widgets = {
+            'due_back': DateInput()
+        }
+        exclude = ['id']
 
 
 class AuthorForm(ModelForm):

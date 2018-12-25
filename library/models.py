@@ -80,7 +80,7 @@ class BookInstance(models.Model):
         help_text='Book availability')
 
     class Meta:
-        ordering = ['due_back']
+        ordering = ['due_back', 'status']
 
     def __str__(self):
         """String for representing the Model object."""

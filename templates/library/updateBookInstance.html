@@ -1,0 +1,35 @@
+{% extends "library/adminDashBoard.html" %}
+{% block center-content %}
+
+<!-- {{context}} -->
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        {{context.as_p}}
+        <!-- {% for field in context %}
+        <div class="form-group">
+            {% if field.name != "id" and field.name != "due_back" %}
+            {{field.name}}:
+            <div>{{field}}</div>
+            {% elif field.name != "id" %}
+            <div>{{field.name}}:</div>
+            {{ field.due_back|date:"D d M Y" }}
+            {{field}}
+            {% endif %}
+        </div>
+        {% endfor %} -->
+        {% if messages %}
+
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+
+        {% endif %}
+        <input type="submit" value="Update">
+    </form>
+</div>
+
+
+
+
+{% endblock %}

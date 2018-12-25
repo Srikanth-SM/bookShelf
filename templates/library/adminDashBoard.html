@@ -17,40 +17,19 @@
         </a>
     </div>
     <div>
-        <a href="#">
+        <!-- <a href="#">
             Update A Book
-        </a>
+        </a> -->
     </div>
     <div>
-        <a href="#">
+        <!-- <a href="#">
             Delete A Book
-        </a>
+        </a> -->
     </div>
 </div>
 <!-- Book Instance -->
 <div class="margin-top">BookInstance</div>
-<div class="">
-    <div>
-        <a href="{% url 'getBookInstances' %}">
-            Get All BookInstance
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'addBookInstance' %}">
-            Create A BookInstance
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'updateBookInstance' %}">
-            Update A BookInstance
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'deleteBookInstance' %}">
-            Delete A BookInstance
-        </a>
-    </div>
-</div>
+
 
 {% endblock %}
 
@@ -64,7 +43,8 @@
 
 
 {% block right-side %}
-<div class="float-right">{% firstof context.user userData %}
+
+<div class="float-right">{{ user }}
     <a href="/auth/logout/">
         logout
     </a>
