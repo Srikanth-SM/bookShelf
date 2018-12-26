@@ -222,6 +222,12 @@ def deleteBook(request, pk):
     # books = BookForm(request.POST)
     try:
         book = Book.objects.get(id=pk)
+        # do not delete the book the book copies are booked by some user.
+        bookCopiesTakenByUser = (
+            book.bookinstance_set.exclude(status='a')).count()
+        if bookCopiesTakenByUser > 0:
+            raise Exception(
+                "Sorry, you cannot delete the book for now as this Book copies are taken by user")
         book.delete()
         return redirect("getBooks")
     except Exception as e:
