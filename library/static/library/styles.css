@@ -53,3 +53,18 @@
 .back a {color: #444444; font-size: 13px;text-decoration: none;}
 .topRight {float:right}
 .vertical {margin-left: 50%}
+.not-active {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: black;
+  display: none;
+}
+
+.displayBookAndDelete{
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: black;
+  
+}
