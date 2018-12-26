@@ -1,15 +1,16 @@
 {% extends "library/adminDashBoard.html" %}
 {% block center-content %}
 <!-- {{context.book}} -->
+
 <div>
+    {% if user.is_staff %}
     <h2>{{context.book.title}}</h2>
     <h3>{{context.book.author}}</h3>
 
     <table class="table table-striped">
         <thead>
             <tr>
-
-                <th>id</th>
+                <!-- <th>id</th> -->
                 <th>Borrower</th>
                 <th>Due Date</th>
                 <th>Status</th>
@@ -19,41 +20,140 @@
                 <th></th>
             </tr>
         </thead>
+
         {% for bookinstance in context.book.bookinstance_set.all %}
         <tbody>
 
             <tr>
 
-                <td>{{bookinstance.id}}</td>
-                <td>{{bookinstance.borrower_id}}</td>
+                <!-- <td>{{bookinstance.id}}</td> -->
+                <td>{{bookinstance.borrower}}</td>
                 <td>
                     {% if bookinstance.due_back %}
                     {{bookinstance.due_back}}
                     {% else %}
                     None
+                    {% endif %}
                 </td>
-                {% endif %}
+
                 <td>{{bookinstance.get_status_display}}</td>
                 <td>
+
                     <a href="take/{{bookinstance.id}}/">book</a>
+
                 </td>
 
                 <td>
-                    <a href="delete/{{bookinstance.id}}/">delete</a>
+                    <a href="delete/{{bookinstance.id}}/" class="{% if bookinstance.get_status_display != 'Available' %}not-active{% endif %}">delete</a>
                 </td>
                 <td>
-                    <a href="update/{{bookinstance.id}}/">update</a>
+                    <a href="update/{{bookinstance.id}}/" class="{% if bookinstance.get_status_display != 'Available' %}not-active{% endif %}">update</a>
                 </td>
                 <td>
                     <a href="return/{{bookinstance.id}}/">return</a>
                 </td>
             </tr>
         </tbody>
-        {%endfor%}
-    </table>
+        {% endfor %}
 
+    </table>
+    {% else %}
+    {% if context.book %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th>Book</th>
+
+                <th>Status</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>{{context.book.book.title}}</td>
+                <td>{{context.book.get_status_display}}</td>
+                <td>
+
+                    <a href="take/{{context.book.id}}/" class="{% if context.book.get_status_display != 'Available' %}not-active{% endif %}">book</a>
+
+                </td>
+
+                <td>
+                    <a href="delete/{{context.book.id}}/" class="{% if user.is_staff == False %}not-active{% endif %}">delete</a>
+                </td>
+                <td>
+                    <a href="update/{{context.book.id}}/" class="{% if user.is_staff == False %}not-active{% endif %}">update</a>
+                </td>
+                <td>
+                    <a href="return/{{context.book.id}}/" class="{% if context.book.get_status_display == 'Available' %}not-active{% endif %}">return</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+    {% endif %}
+
+
+
+    <!-- Books Owned by current user -->
+
+    {% if context.booksOwned %}
+    <div>
+        Books Owned:-
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th>Book</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            {% for bookinstance in context.booksOwned %}
+            <tbody>
+
+                <tr>
+
+                    <td>{{bookinstance.book}}</td>
+                    <td>
+                        {% if bookinstance.due_back %}
+                        {{bookinstance.due_back}}
+                        {% else %}
+                        None
+                        {% endif %}
+                    </td>
+
+                    <td>{{bookinstance.get_status_display}}</td>
+                    <td>
+
+                        <a href="take/{{bookinstance.id}}/" class="{% if bookinstance.get_status_display != 'Available' %}not-active{% endif %}">book</a>
+                        <a href="return/{{bookinstance.id}}/" class="{% if bookinstance.get_status_display == 'Available' %}not-active{% endif %}">return</a>
+
+                    </td>
+
+                    <td>
+                        <a href="delete/{{bookinstance.id}}/" class="{% if user.is_staff == False %}not-active{% endif %}">delete</a>
+                    </td>
+                    <td>
+                        <a href="update/{{bookinstance.id}}/" class="{% if user.is_staff == False %}not-active{% endif %}">update</a>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    {% endif %}
 
 
 </div>
-
 {% endblock %}
