@@ -210,6 +210,7 @@ def addBook(request):
         return JsonResponse({'message': str(e)}, status=404)
 
 
+@login_required
 @permission_required('is_staff')
 def updateBook(request, pk):
     # try:
@@ -237,6 +238,7 @@ def updateBook(request, pk):
     #     return JsonResponse({'message': str(e)}, status=404)
 
 
+@login_required
 @permission_required('is_staff')
 def deleteBook(request, pk):
     # books = BookForm(request.POST)
@@ -270,6 +272,7 @@ def getBookInstances(request):
         return JsonResponse({'message': str(e)}, status=404)
 
 
+@login_required
 @permission_required('is_staff')
 def addBookInstance(request):
     try:
