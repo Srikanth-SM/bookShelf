@@ -2,8 +2,8 @@
 {% block left-side %}
 <div class="">
     <div>
-        <a href="profile/">
-            Profile
+        <a href="{% url 'home' %}">
+            Home
         </a>
     </div>
     <div>
@@ -11,7 +11,7 @@
             Get All Books
         </a>
     </div>
-    <div>
+    <div class="{% if user.is_staff == False %}not-active{% endif %}">
         <a href="{% url 'addBook'  %}">
             Create A Book
         </a>
@@ -28,7 +28,15 @@
     </div>
 </div>
 <!-- Book Instance -->
-<div class="margin-top">BookInstance</div>
+<div class="margin-top {% if user.is_staff == False %}not-active{% endif %}">
+    BookInstance
+    <div class="{% if user.is_staff == False %}not-active{% endif %}">
+        <a href="/shelf/bookInstance/add">
+            Create a Book Copy
+        </a>
+    </div>
+
+</div>
 
 
 {% endblock %}

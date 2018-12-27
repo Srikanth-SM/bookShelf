@@ -1,9 +1,44 @@
-{% extends "library/base.html" %}
-{% block main %}
+{% extends "library/adminDashBoard.html" %}
+{% block center-content %}
 
-<a href="login/" rel="noopener noreferrer">Login </a>
-<a href="signUp/" rel="noopener noreferrer">Sign Up </a>
+{% if context.booksOwned %}
+<div>
+    Books Owned:-
+    <table class="table table-striped">
+        <thead>
+            <tr>
 
+                <th>Book</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th></th>
+                <!-- <th></th> -->
+            </tr>
+        </thead>
+        {% for bookinstance in context.booksOwned %}
+        <tbody>
+
+            <tr>
+
+                <td>{{bookinstance.book}}</td>
+                <td>
+                    {% if bookinstance.due_back %}
+                    {{bookinstance.due_back}}
+                    {% else %}
+                    None
+                    {% endif %}
+                </td>
+
+                <td>{{bookinstance.get_status_display}}</td>
+
+                <td>
+                    <a href='{% url "returnBookInstance" bookinstance.book.id bookinstance.id %}' class="{% if bookinstance.get_status_display == 'Available' %}not-active{% endif %}">return</a>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
 
 {% endblock %}
-hai

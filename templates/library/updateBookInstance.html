@@ -5,19 +5,25 @@
 <div>
     <form method="POST">
         {% csrf_token %}
-        {{context.as_p}}
-        <!-- {% for field in context %}
+        <!-- {{context.bookinstance}} -->
+        {% for field in context.bookinstance %}
         <div class="form-group">
-            {% if field.name != "id" and field.name != "due_back" %}
-            {{field.name}}:
-            <div>{{field}}</div>
-            {% elif field.name != "id" %}
-            <div>{{field.name}}:</div>
-            {{ field.due_back|date:"D d M Y" }}
-            {{field}}
-            {% endif %}
+            <div>
+
+                {% if field.name != "borrower" and field.name != "due_back" %}
+                {{field.name}}:
+                <div>{{field}}</div>
+
+                {% endif %}
+            </div>
+
+
         </div>
-        {% endfor %} -->
+
+        {% endfor %}
+
+
+
         {% if messages %}
 
         {% for message in messages %}

@@ -2,36 +2,52 @@
 
 {% block center-content %}
 
-<div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
 
-                <th>Title</th>
-                <th>Author</th>
-                <th>Language</th>
-                <th>Copies</th>
-            </tr>
-        </thead>
+<table class=" left-float">
+    <thead>
+        <tr class="">
 
-        {% for book in context.get_books %}
-        <!-- {{book.id}} -->
-        <tbody>
-            <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <!-- <th>Language</th> -->
+            <th>Copies</th>
+        </tr>
+    </thead>
 
-                <td>
-                    <a href="{{book.id}}">
-                        {{book.title}}
-                    </a>
-                </td>
-                <td>{{book.author}}</td>
-                <td>{{book.language}}</td>
-                <td>{{book.bookinstance_set.count}}</td>
-            </tr>
-        </tbody>
-        {% endfor %}
-    </table>
+    {% for book in context.get_books %}
+    <!-- {{book.id}} -->
+    <tbody>
+        <tr class="">
 
-</div>
+            <td>
+                <a href="{{book.id}}">
+                    {{book.title}}
+                </a>
+            </td>
+            <td>{{book.author}}</td>
+            <!-- <td>{{book.language}}</td> -->
+            <td>{{book.bookinstance_set.count}}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+<table class="left-float">
+    <thead>
+        <tr>
+
+            <th>Title</th>
+
+        </tr>
+    </thead>
+    {% for count in context.avail_BookCopyCount %}
+    <tbody>
+        <tr>
+            <td>{{count}}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+
 
 {% endblock %}

@@ -7,6 +7,11 @@
     <h2>{{context.book.title}}</h2>
     <h3>{{context.book.author}}</h3>
 
+    {% if context.book.bookinstance_set.all.count > 0 %}
+
+
+
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -39,24 +44,29 @@
                 <td>{{bookinstance.get_status_display}}</td>
                 <td>
 
-                    <a href="take/{{bookinstance.id}}/">book</a>
+                    <a href="take/{{bookinstance.id}}/" class="{% if user.is_staff == True or bookinstance.get_status_display != 'Available' or user.is_staff == True %}not-active{% endif %}">book</a>
 
                 </td>
 
                 <td>
-                    <a href="delete/{{bookinstance.id}}/" class="{% if bookinstance.get_status_display != 'Available' %}not-active{% endif %}">delete</a>
+                    <a href="delete/{{bookinstance.id}}/" class="{% if bookinstance.get_status_display == 'On loan' or bookinstance.get_status_display == 'Reserved'  %}not-active{% endif %}">delete</a>
                 </td>
                 <td>
-                    <a href="update/{{bookinstance.id}}/" class="{% if bookinstance.get_status_display != 'Available' %}not-active{% endif %}">update</a>
+                    <a href="update/{{bookinstance.id}}/" class="{% if bookinstance.get_status_display == 'On loan' or bookinstance.get_status_display == 'Reserved' %}not-active{% endif %}">update</a>
                 </td>
                 <td>
-                    <a href="return/{{bookinstance.id}}/">return</a>
+                    <a href="return/{{bookinstance.id}}/" class="{% if user.is_staff == True  or bookinstance.get_status_display != 'On loan'  and bookinstance.get_status_display != 'Reserved'  %}not-active{% endif %}">return</a>
                 </td>
             </tr>
         </tbody>
         {% endfor %}
 
     </table>
+    {% else %}
+    <div>
+        No copies were present for this Book in Library
+    </div>
+    {% endif %}
     {% else %}
     {% if context.book %}
     <table class="table table-striped">

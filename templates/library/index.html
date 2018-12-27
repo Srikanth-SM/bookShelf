@@ -1,24 +1,9 @@
 {% extends "library/base.html" %}
+{% block main %}
 
-{% block content %}
-
-
-
-<form method='POST'>
-    {% csrf_token %}
-    {% if userData %}
-    <input type="submit" value="logout">
-    {% else %}
-
-
-    {{form.as_p}}
-
-
-    {{userData.length}}
-
-    <input type="submit" value="login">
-</form>
-{% endif %}
+<a href="login/" rel="noopener noreferrer">Login </a>
+<a href="signUp/" rel="noopener noreferrer">Sign Up </a>
 
 
 {% endblock %}
+hai
