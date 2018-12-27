@@ -3,7 +3,7 @@
 {% block center-content %}
 
 
-<table class=" left-float">
+<table class="table table-striped">
     <thead>
         <tr class="">
 
@@ -11,37 +11,23 @@
             <th>Author</th>
             <!-- <th>Language</th> -->
             <th class="textCentre">Copies</th>
+            <th class="textCentre">Copies Available</th>
         </tr>
     </thead>
 
-    {% for book in context.get_books %}
+    {% for book,count in context.get_Books %}
     <!-- {{book.id}} -->
     <tbody>
         <tr class="">
 
             <td>
                 <a href="{{book.id}}">
-                    {{book.title}}
+                    {{book}}
                 </a>
             </td>
             <td>{{book.author}}</td>
             <!-- <td>{{book.language}}</td> -->
             <td class="textCentre">{{book.bookinstance_set.count}}</td>
-        </tr>
-    </tbody>
-    {% endfor %}
-</table>
-<table class="left-float">
-    <thead>
-        <tr>
-
-            <th>Avail Copies</th>
-
-        </tr>
-    </thead>
-    {% for count in context.avail_BookCopyCount %}
-    <tbody>
-        <tr>
             <td class="textCentre">{{count}}</td>
         </tr>
     </tbody>

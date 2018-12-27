@@ -35,7 +35,7 @@ def getBooks(request):
     context = {}
     # print (request.user)
     # context['user'] = request.user
-    context['get_books'] = (Book.objects.all())
+    get_Books = (Book.objects.all()).order_by("id")
     bookIds = Book.objects.order_by("id").values("id")
     avail_BookCopyCount = []
     i = 0
@@ -47,7 +47,7 @@ def getBooks(request):
         avail_BookCopyCount.append(a)
         i += 1
     # context['get_books'] = (Book.objects.all())
-    context['avail_BookCopyCount'] = avail_BookCopyCount
+    context['get_Books'] = zip(get_Books, avail_BookCopyCount)
     print(context)
     return render(request, "library/getBooks.html", {"context": context})
 
@@ -382,7 +382,7 @@ def returnBookInstance(request, bookId, bookInstanceId):
 
         due_back = None
         borrower = None
-        status = 'd'
+        status = 'a'
 
         # print (borrower, due_back, status)
         bookinstance.due_back = due_back
