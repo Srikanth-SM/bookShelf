@@ -68,3 +68,11 @@
   color: black;
   
 }
+.inlineTable {
+  display: inline-block;
+}
+div>table {
+  float: left;
+  font-size: 22px;
+  margin:2%;
+}
