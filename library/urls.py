@@ -21,6 +21,7 @@ from library import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('shelf/', views.index, name='index'),
+    path('shelf/home/', views.home, name='home'),
     path('shelf/dashboard', views.adminDashBoard, name='adminDashBoard'),
     path('shelf/book/', views.getBooks, name='getBooks'),
     path('shelf/book/<int:bookId>/take/<str:bookInstanceId>/',
@@ -39,6 +40,8 @@ urlpatterns = [
 
     path('shelf/book/<int:bookId>/return/<str:bookInstanceId>/',
          views.returnBookInstance, name='returnBookInstance'),
+
+    path('shelf/bookInstance/add/', views.addBookInstance, name='addBookInstance'),
 
     path('auth/', include('authenticate.urls'))
 ]
