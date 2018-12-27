@@ -76,7 +76,7 @@ class BookInstance(models.Model):
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
-        default='d',
+        default='a',
         help_text='Book availability')
 
     class Meta:
