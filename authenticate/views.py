@@ -16,14 +16,14 @@ ROOT_URL = 'library/'
 
 
 def home(request):
-    return render(request, ROOT_URL+"home.html")
+    return render(request, ROOT_URL+"index.html")
     # return HttpResponse("hai")
 
 
 def profile(request):
     session = request.user
     # print ("is user authenticated - ",request.user.is_authenticated()
-    return HttpResponseRedirect("/shelf/")
+    return HttpResponseRedirect("/shelf/home/")
 
 
 def login(request):
@@ -57,7 +57,7 @@ def login(request):
         # the method is GET and it will fetch the login form
         else:
             loginForm = LoginForm()
-            return render(request, ROOT_URL+"index.html", {'form': loginForm})
+            return render(request, ROOT_URL+"login.html", {'form': loginForm})
         # return HttpResponse("hai")
 
 
