@@ -132,10 +132,11 @@ def bookABook(request, bookId, bookInstanceId):
         due_back = datetime.date.today()+datetime.timedelta(weeks=1)
         borrower = request.POST.get('borrower') or User.objects.filter(
             username=request.user)[0].id
+        print(borrower)
         status = 'o'
-        # print (due_back, borrower, status)
-        user_bookCount = User.objects.all()[int(
-            borrower)-1].bookinstance_set.all().count()
+        user_bookCount = User.objects.filter(id=int(
+            borrower))[0].bookinstance_set.all().count()
+        print(due_back, borrower, status)
         print("Inside bookABook")
         # print (user_bookCount)
         # messages.error(
