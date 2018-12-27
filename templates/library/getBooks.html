@@ -10,7 +10,7 @@
             <th>Title</th>
             <th>Author</th>
             <!-- <th>Language</th> -->
-            <th>Copies</th>
+            <th class="textCentre">Copies</th>
         </tr>
     </thead>
 
@@ -26,7 +26,7 @@
             </td>
             <td>{{book.author}}</td>
             <!-- <td>{{book.language}}</td> -->
-            <td>{{book.bookinstance_set.count}}</td>
+            <td class="textCentre">{{book.bookinstance_set.count}}</td>
         </tr>
     </tbody>
     {% endfor %}
@@ -35,14 +35,14 @@
     <thead>
         <tr>
 
-            <th>Title</th>
+            <th>Avail Copies</th>
 
         </tr>
     </thead>
     {% for count in context.avail_BookCopyCount %}
     <tbody>
         <tr>
-            <td>{{count}}</td>
+            <td class="textCentre">{{count}}</td>
         </tr>
     </tbody>
     {% endfor %}

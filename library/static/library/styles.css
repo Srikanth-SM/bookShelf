@@ -73,6 +73,11 @@
 }
 div>table {
   float: left;
-  font-size: 22px;
-  margin:2%;
+  font-size: 20px;
+  margin:1%;
+  text-align: left;
+}
+
+.textCentre{
+  text-align: center;
 }
