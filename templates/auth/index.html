@@ -1,0 +1,8 @@
+{% extends "library/base.html" %}
+{% block main %}
+
+<a href="{% url 'authenticate:login' %}" rel="noopener noreferrer">Login </a>
+<a href="{% url 'authenticate:signup' %}" rel="noopener noreferrer">Sign Up </a>
+
+
+{% endblock %}

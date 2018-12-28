@@ -16,14 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from library import views
+from authenticate import views as auth_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('shelf/', views.index, name='index'),
+    path('', auth_views.landing_page),
+    path('shelf/', views.home, name='home'),
     path('shelf/home/', views.home, name='home'),
     path('shelf/dashboard', views.adminDashBoard, name='adminDashBoard'),
-    path('shelf/book/', views.getBooks, name='getBooks'),
+    path('shelf/books/', views.getBooks, name='get_all_books'),
     path('shelf/book/<int:bookId>/take/<str:bookInstanceId>/',
          views.bookABook, name='bookABook'),
     path('shelf/book/<int:pk>/update/', views.updateBook, name='updateBook'),
@@ -39,7 +41,7 @@ urlpatterns = [
          views.updateBookInstance, name='updateBookInstance'),
 
     path('shelf/book/<int:bookId>/return/<str:bookInstanceId>/',
-         views.returnBookInstance, name='returnBookInstance'),
+         views.return_book, name='return_book'),
 
     path('shelf/bookInstance/add/', views.addBookInstance, name='addBookInstance'),
 

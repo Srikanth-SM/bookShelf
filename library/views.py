@@ -1,58 +1,56 @@
-import datetime
-from django.shortcuts import render, redirect, HttpResponse, Http404, render_to_response
-from django.contrib.auth.decorators import permission_required, login_required, user_passes_test
-from library.models import Book, BookInstance, Language, Genre, Author, User
-from library.forms import BookForm, BookInstanceForm
-from django.forms import modelformset_factory
-from django.contrib import messages
 from functools import wraps
-from django.http import JsonResponse
+import datetime
 import re
 
+from django.contrib import messages
+from django.contrib.auth.decorators import permission_required, login_required, user_passes_test
+from django.forms import modelformset_factory
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, HttpResponse, Http404, render_to_response
 
-def index(request):
-    # # print  (request.user)
-    return redirect("home")
 
+from .forms import BookForm, BookInstanceForm
+from .models import Book, BookInstance, Language, Genre, Author, User
+
+BASE_TEMPLATE_DIR = 'library'
 
 @login_required
 def home(request):
+    # For admin landing page is get all books.
+    template = os.path.join(BASE_TEMPLATE_DIR, 'home.html')
     if request.user.is_staff:
-        return redirect("getBooks")
+        return redirect(reverse('get_all_books'))
     else:
         context = {}
-        try:
-            userid = User.objects.filter(username=request.user)[0].id
-            booksOwned = BookInstance.objects.filter(borrower_id=userid)
-            context['booksOwned'] = booksOwned
-            return render(request, "library/home.html", {"context": context})
-        except Exception as e:
-            return JsonResponse({'message': str(e)}, status=404)
+        user = request.user
+        books_owned = BookInstance.objects.filter(borrower_id=user.id)
+        context['books_owned'] = books_owned
+        return render(request, template, context)
 
 
-def getBooks(request):
-    # # print (request.__dict__)
-    context = {}
-    # print (request.user)
-    # context['user'] = request.user
-    get_Books = (Book.objects.all()).order_by("id")
-    bookIds = Book.objects.order_by("id").values("id")
-    avail_BookCopyCount = []
-    i = 0
-    for bookId in bookIds:
-        print(bookId)
-        a = Book.objects.filter(id=int(bookId['id']))[
-            0].bookinstance_set.filter(status='a').count()
-        # context['get_books'][str(bookId['id'])] = a
-        avail_BookCopyCount.append(a)
-        i += 1
+def get_all_books(request):
+    # TODO: use model method for available copies
+    template = os.path.join(BASE_TEMPLATE_DIR, 'get_all_books.html')
+    get_books = Book.objects.all().order_by("id")
+    book_ids = get_books.values('id')
+    available_copies_per_book = []
+    # i = 0
+    # for bookId in bookIds:
+        # print(bookId)
+        # a = Book.objects.filter(id=int(bookId['id']))[
+            # 0].bookinstance_set.filter(status='a').count()
+        # # context['get_books'][str(bookId['id'])] = a
+        # avail_BookCopyCount.append(a)
+        # i += 1
     # context['get_books'] = (Book.objects.all())
-    context['get_Books'] = zip(get_Books, avail_BookCopyCount)
-    print(context)
-    return render(request, "library/getBooks.html", {"context": context})
+    # context['get_Books'] = zip(get_Books, avail_BookCopyCount)
+    # print(context)
+    context = {'books': books}
+    return render(request, template, context)
 
 
-def getBook(request, pk):
+# def getBook(request, pk):
+def book_detail(request, pk):
     admin = request.user.is_staff
     context = {}
     try:

@@ -11,7 +11,6 @@ from django.contrib import admin
 class Genre(models.Model):
     """Model definition for MODELNAME."""
 
-    # TODO: Define fields here
     genre = models.CharField(
         help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)",
         max_length=50)

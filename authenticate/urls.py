@@ -1,14 +1,11 @@
 from django.conf.urls import url
+from django.urls import path
 from . import views
 
 
 app_name = 'authenticate'
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
-    url(r'^login/', views.login, name='login'),
-    url(r'^profile/', views.profile, name='profile'),
-    url(r'^logout/', views.logout, name='logout'),
-    url(r'^signUp/', views.signUp, name='signUp'),
-
-    # url(r'^signUp/', views.SignUp.as_view(), name='signup'),
+    path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
+    path('signup/', views.signup, name='signup'),
 ]

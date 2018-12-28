@@ -1,11 +1,9 @@
-<!-- {{form}} -->
 <form method='POST'>
     {% csrf_token %}
     {% for f in form %}
 
     <p>{{f.name}}:{{f}} {{f.errors}}</p>
     {% endfor%}
-    <a href="profile/">
-        <input type="submit" value="SignUp">
-    </a>
+      <input type="submit" value="SignUp">
+    <a href="{%url 'authenticate:login' %}">Login</a>
 </form>

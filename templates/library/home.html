@@ -15,12 +15,12 @@
                 <!-- <th></th> -->
             </tr>
         </thead>
-        {% for bookinstance in context.booksOwned %}
+        {% for bookinstance in books_owned %}
         <tbody>
 
             <tr>
 
-                <td>{{bookinstance.book}}</td>
+                <td>{{bookinstance.book.title}}</td>
                 <td>
                     {% if bookinstance.due_back %}
                     {{bookinstance.due_back}}
@@ -32,7 +32,7 @@
                 <td>{{bookinstance.get_status_display}}</td>
 
                 <td>
-                    <a href='{% url "returnBookInstance" bookinstance.book.id bookinstance.id %}' class="{% if bookinstance.get_status_display == 'Available' %}not-active{% endif %}">return</a>
+                    <a href='{% url "return_book" bookinstance.book.id bookinstance.id %}' class="{% if bookinstance.get_status_display == 'Available' %}not-active{% endif %}">return</a>
                 </td>
             </tr>
         </tbody>
