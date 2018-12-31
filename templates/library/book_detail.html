@@ -1,13 +1,13 @@
 {% extends "library/adminDashBoard.html" %}
 {% block center-content %}
-<!-- {{context.book}} -->
+<!-- {{book}} -->
 
 <div>
     {% if user.is_staff %}
-    <h2>{{context.book.title}}</h2>
-    <h3>{{context.book.author}}</h3>
+    <h2>{{book.title}}</h2>
+    <h3>{{book.author}}</h3>
 
-    {% if context.book.bookinstance_set.all.count > 0 %}
+    {% if book.bookinstance_set.all.count > 0 %}
 
 
 
@@ -26,7 +26,7 @@
             </tr>
         </thead>
 
-        {% for bookinstance in context.book.bookinstance_set.all %}
+        {% for bookinstance in book.bookinstance_set.all %}
         <tbody>
 
             <tr>
@@ -68,7 +68,7 @@
     </div>
     {% endif %}
     {% else %}
-    {% if context.book %}
+    {% if book %}
     <table class="table table-striped">
         <thead>
             <tr>
@@ -84,22 +84,22 @@
         <tbody>
 
             <tr>
-                <td>{{context.book.book.title}}</td>
-                <td>{{context.book.get_status_display}}</td>
+                <td>{{book.book.title}}</td>
+                <td>{{book.get_status_display}}</td>
                 <td>
 
-                    <a href="take/{{context.book.id}}/" class="{% if context.book.get_status_display != 'Available' %}not-active{% endif %}">book</a>
+                    <a href="take/{{book.id}}/" class="{% if book.get_status_display != 'Available' %}not-active{% endif %}">book</a>
 
                 </td>
 
                 <td>
-                    <a href="delete/{{context.book.id}}/" class="{% if user.is_staff == False %}not-active{% endif %}">delete</a>
+                    <a href="delete/{{book.id}}/" class="{% if user.is_staff == False %}not-active{% endif %}">delete</a>
                 </td>
                 <td>
-                    <a href="update/{{context.book.id}}/" class="{% if user.is_staff == False %}not-active{% endif %}">update</a>
+                    <a href="update/{{book.id}}/" class="{% if user.is_staff == False %}not-active{% endif %}">update</a>
                 </td>
                 <td>
-                    <a href="return/{{context.book.id}}/" class="{% if context.book.get_status_display == 'Available' %}not-active{% endif %}">return</a>
+                    <a href="return/{{book.id}}/" class="{% if book.get_status_display == 'Available' %}not-active{% endif %}">return</a>
                 </td>
             </tr>
         </tbody>
@@ -111,7 +111,7 @@
 
     <!-- Books Owned by current user -->
 
-    {% if context.booksOwned %}
+    {% if books_owned %}
     <div>
         Books Owned:-
         <table class="table table-striped">
@@ -125,7 +125,7 @@
                     <th></th>
                 </tr>
             </thead>
-            {% for bookinstance in context.booksOwned %}
+            {% for bookinstance in books_owned %}
             <tbody>
 
                 <tr>

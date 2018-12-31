@@ -6,7 +6,7 @@
 <form method="POST">
     {% csrf_token %}
     <div class="form-group">
-        {% for field in context %}
+        {% for field in bookForm %}
         <div class="form-group">
             {{ field.name }}
             <div>

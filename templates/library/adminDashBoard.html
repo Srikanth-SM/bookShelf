@@ -7,12 +7,12 @@
         </a>
     </div>
     <div>
-        <a href="{% url 'getBooks' %}">
+        <a href="{% url 'get_all_books' %}">
             Get All Books
         </a>
     </div>
     <div class="{% if user.is_staff == False %}not-active{% endif %}">
-        <a href="{% url 'addBook'  %}">
+        <a href="{% url 'add_book'  %}">
             Create A Book
         </a>
     </div>
@@ -53,7 +53,7 @@
 {% block right-side %}
 
 <div class="float-right">{{ user }}
-    <a href="/auth/logout/">
+    <a href="{% url 'authenticate:logout' %}">
         logout
     </a>
 </div>
