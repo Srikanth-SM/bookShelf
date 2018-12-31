@@ -47,6 +47,14 @@ class Book(models.Model):
         """Unicode representation of Book."""
         return self.title
 
+    @property
+    def get_total_copies(self):
+        return self.bookinstance_set.all().count()
+
+    @property
+    def get_available_copies(self):
+        return self.bookinstance_set.filter(status='a').count()
+
 
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
@@ -84,6 +92,13 @@ class BookInstance(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return '{0} ({1})'.format(self.id, self.book.title)
+
+    @classmethod
+    def get_user_books(cls, userid):
+        return BookInstance.objects.filter(borrower_id=userid)
+
+    def get_by_bookid_instance_id(self, book_id, book_instance_id):
+        return BookInstance.objects.filter(id=book_instance_id, book_id=book_id)
 
 
 class Author(models.Model):
