@@ -24,26 +24,26 @@ urlpatterns = [
     path('', auth_views.landing_page),
     path('shelf/', views.home, name='home'),
     path('shelf/home/', views.home, name='home'),
-    path('shelf/dashboard', views.adminDashBoard, name='adminDashBoard'),
-    path('shelf/books/', views.getBooks, name='get_all_books'),
-    path('shelf/book/<int:bookId>/take/<str:bookInstanceId>/',
-         views.bookABook, name='bookABook'),
-    path('shelf/book/<int:pk>/update/', views.updateBook, name='updateBook'),
-    path('shelf/book/<int:pk>/', views.getBook, name='getBook'),
-    path('shelf/book/add/', views.addBook, name='addBook'),
-    path('shelf/book/<int:pk>/delete/',
-         views.deleteBook, name='deleteBook'),
+    path('shelf/books/', views.get_all_books, name='get_all_books'),
+    path('shelf/books/<int:book_id>/take/<str:book_instance_id>/',
+         views.book_a_book, name='book_a_book'),
+    path('shelf/books/<int:pk>/update/', views.update_book, name='update_book'),
+    path('shelf/books/<int:pk>/', views.book_detail, name='book_detail'),
+    path('shelf/books/add/', views.add_book, name='add_book'),
+    path('shelf/books/<int:pk>/delete/',
+         views.delete_book, name='delete_book'),
 
-    path('shelf/book/<int:bookId>/delete/<str:bookInstanceId>/',
-         views.deleteBookInstance, name='deleteBookInstance'),
+    path('shelf/books/<int:book_id>/delete/<str:book_instance_id>/',
+         views.delete_book_instance, name='delete_book_instance'),
 
-    path('shelf/book/<int:bookId>/update/<str:bookInstanceId>/',
-         views.updateBookInstance, name='updateBookInstance'),
+    path('shelf/books/<int:book_id>/update/<str:book_instance_id>/',
+         views.update_book_instance, name='update_book_instance'),
 
-    path('shelf/book/<int:bookId>/return/<str:bookInstanceId>/',
+    path('shelf/books/<int:book_id>/return/<str:book_instance_id>/',
          views.return_book, name='return_book'),
 
-    path('shelf/bookInstance/add/', views.addBookInstance, name='addBookInstance'),
+    path('shelf/bookInstance/add/',
+         views.add_book_instance, name='add_book_instance'),
 
     path('auth/', include('authenticate.urls'))
 ]

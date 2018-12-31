@@ -5,7 +5,7 @@
 
 <form method="POST">
     {% csrf_token %}
-    {% for field in context %}
+    {% for field in bookInstanceForm %}
     <div class="form-group">
         {% if field.name == 'book' %}
         <div class="form-group">

@@ -15,7 +15,8 @@
         </tr>
     </thead>
 
-    {% for book,count in context.get_Books %}
+    {{books.0.status}}
+    {% for book in books %}
     <!-- {{book.id}} -->
     <tbody>
         <tr class="">
@@ -27,8 +28,8 @@
             </td>
             <td>{{book.author}}</td>
             <!-- <td>{{book.language}}</td> -->
-            <td class="textCentre">{{book.bookinstance_set.count}}</td>
-            <td class="textCentre">{{count}}</td>
+            <td class="textCentre">{{book.get_total_copies}}</td>
+            <td class="textCentre">{{book.get_available_copies}}</td>
         </tr>
     </tbody>
     {% endfor %}
