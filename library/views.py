@@ -41,45 +41,56 @@ def get_all_books(request):
 def book_detail(request, pk):
     template = os.path.join(BASE_TEMPLATE_DIR, 'book_detail.html')
     admin = request.user.is_staff
-    context = {}
-    book = None
+    book = Book.objects.filter(id=pk).first()
     books_owned = None
     if not admin:
         user_book_count_copy = User.objects.filter(username=request.user)[
             0].bookinstance_set.filter(book_id=pk).count()
         bookinstances = BookInstance.objects.filter(book_id=pk, status='a')
+
+        # TODO: Define these methods
+        # if user_has_this_book():
+            # messages.info(request, "Cannot book Morethan one copy.")
+
+        # if user_can_book():
+            # book = bookinstances[0]
+
+        # if not bookinstances:
+            # messages.info(request, "There are no copies of the selected title.")
+
+
         if user_book_count_copy < 1 and len(bookinstances) > 0:
             book = bookinstances[0]
         elif user_book_count_copy >= 1:
             messages.info(request, "Cannot book Morethan one copy.")
         else:
-            messages.info(request, "There are No Books of selected title.")
+            messages.info(request, "There are no copies of the selected title.")
         userid = request.user.id
         books_owned = BookInstance.get_user_books(userid)
-    else:
-        book = Book.objects.filter(id=pk).first()
-    context['book'] = book
+
+    context = {'book': book}
     context['books_owned'] = books_owned
     return render(request, template, context)
 
 
 @login_required
+# rent_a_book
 def book_a_book(request, book_id, book_instance_id):
-    userid = request.user.id
-    books = Book.objects.get(
-        id=book_id).bookinstance_set.filter(id=book_instance_id, status='a')
+    user = request.user
+    book = Book.objects.get(
+        id=book_id).bookinstance_set.filter(id=book_instance_id, status='a').first()
 
-    if books.count() < 1:
+    if not book:
         messages.error(
-            request, "Book is cannot be booked as it is not available")
+            request, "This book is not available")
         return redirect("book_detail", pk=book_id)
 
     context = {}
-    userBookCopyCount = User.objects.filter(id=userid)[
+    userBookCopyCount = User.objects.filter(id=user.id)[
         0].bookinstance_set.filter(book_id=book_id).count()
-    bookinstance = books[0]
+    bookinstance = book
     due_back = datetime.date.today()+datetime.timedelta(weeks=1)
-    borrower = request.POST.get('borrower') or request.user.id
+    borrower = request.POST.get('borrower') or user.id
     status = 'o'
     user_book_count = User.objects.filter(id=int(
         borrower))[0].bookinstance_set.all().count()
@@ -142,6 +153,11 @@ def update_book(request, pk):
 @permission_required('is_staff')
 def delete_book(request, pk):
     book = Book.objects.get(id=pk)
+    # TODO move this logic to a model method
+    # if book.is_on_loan():
+        # messages.warning(
+            # "Sorry, you cannot delete the book for now as this Book copies are taken by user")
+
     book_copies_taken_by_user = (
         book.bookinstance_set.exclude(status='a')).count()
     if book_copies_taken_by_user > 0:
