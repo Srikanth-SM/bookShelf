@@ -114,8 +114,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .vscode/settings.json
-conftest.py
 .coveragerc
-pytest.ini
+.vscode/settings.json
 library/.models.py.swp
-library/context_processors.py
