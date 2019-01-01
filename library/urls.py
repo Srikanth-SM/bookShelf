@@ -26,7 +26,7 @@ urlpatterns = [
     path('shelf/home/', views.home, name='home'),
     path('shelf/books/', views.get_all_books, name='get_all_books'),
     path('shelf/books/<int:book_id>/take/<str:book_instance_id>/',
-         views.book_a_book, name='book_a_book'),
+         views.rent_a_book, name='rent_a_book'),
     path('shelf/books/<int:pk>/update/', views.update_book, name='update_book'),
     path('shelf/books/<int:pk>/', views.book_detail, name='book_detail'),
     path('shelf/books/add/', views.add_book, name='add_book'),
