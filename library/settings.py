@@ -134,3 +134,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_URL = "/auth/login/"
+
+AVAILABLE = 'a'
+MAINTAINANCE = 'd'
+ONLOAN = 'o'
+RESERVED = 'r'

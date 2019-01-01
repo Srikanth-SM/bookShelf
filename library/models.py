@@ -55,6 +55,10 @@ class Book(models.Model):
     def get_available_copies(self):
         return self.bookinstance_set.filter(status='a').count()
 
+    @property
+    def is_on_loan(self):
+        return self.bookinstance_set.exclude(status='a').count() > 0
+
 
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
