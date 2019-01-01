@@ -12,12 +12,12 @@ class Test_urls:
         path = reverse("get_all_books")
         assert (resolve(path).url_name == "get_all_books")
 
-    def test_book_a_book(self):
-        path = reverse("book_a_book", kwargs={
+    def test_rent_a_book(self):
+        path = reverse("rent_a_book", kwargs={
             "book_id": 1,
             "book_instance_id": str(1)
         })
-        assert (resolve(path).url_name == "book_a_book")
+        assert (resolve(path).url_name == "rent_a_book")
 
     def test_update_book(self):
         path = reverse("update_book", kwargs={"pk": 1})
